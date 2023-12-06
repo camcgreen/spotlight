@@ -4,7 +4,7 @@ import prisma from '@/app/utils/db'
 // make sure user authenticated
 // get user id from session
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const body = await req.json()
   const { title } = body
   console.log(title)
