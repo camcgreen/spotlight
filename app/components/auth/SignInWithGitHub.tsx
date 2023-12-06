@@ -10,9 +10,9 @@ export default function SignInWithGitHub() {
     <Button
       onClick={() => {
         setLoading(true)
-        // signIn('github', {
-        //   callbackUrl: `${window.location.origin}`,
-        // })
+        signIn('github', {
+          callbackUrl: `${window.location.origin}`,
+        })
       }}
     >
       Log in with GitHub
