@@ -42,6 +42,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  scenes        Scene[]
 }
 
 model VerificationToken {
@@ -50,4 +51,28 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Scene {
+  id                String    @id @default(cuid())
+  name              String
+  modelType         ModelType
+  positionX         Float
+  positionY         Float
+  positionZ         Float
+  rotationX         Float
+  rotationY         Float
+  rotationZ         Float
+  textureImageLink  String
+  lightingIntensity Float
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+
+  @@index([userId]) // Optional - improves query performance on user-scene relations
+}
+
+enum ModelType {
+  iPhone
+  iPad
+  MacBook
 }

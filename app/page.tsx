@@ -11,16 +11,15 @@ export default async function Home() {
   }
 
   return (
-    <div className='p-10'>
-      <h1>Hello from the index page, this is a public route</h1>
+    <div>
       {session ? (
         <div>
-          <h1>You are logged in.</h1>
+          <h1>Display projects here.</h1>
           <LogOutButton />
         </div>
       ) : (
         <div>
-          <h1>Please log in to see something special</h1>
+          <h1>Please log in to get started.</h1>
         </div>
       )}
     </div>
