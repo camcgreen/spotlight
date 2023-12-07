@@ -11,7 +11,8 @@ export default async function Home() {
     return redirect('/auth')
   }
 
-  const endpoint = `http://localhost:3000/api/scenes?userId=${session.user.id}`
+  // const endpoint = `http://localhost:3000/api/scenes?userId=${session.user.id}`
+  const endpoint = `https://getspotlight.vercel.app/api/scenes?userId=${session.user.id}`
   const res = await fetch(endpoint)
   const scenes = await res.json()
   console.log('endpoint:', endpoint)
