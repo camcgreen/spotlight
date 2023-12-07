@@ -41,7 +41,7 @@ export default async function Home() {
       {session ? (
         <div>
           <h1>Display projects here.</h1>
-          {/* <h2>{process.env.NODE_ENV !== 'production' ? URL_DEV : URL_PROD}</h2> */}
+          <h2>{process.env.NODE_ENV !== 'production' ? URL_DEV : URL_PROD}</h2>
           <ul>
             {scenes.map((scene: Scene) => (
               <li key={scene.id}>
