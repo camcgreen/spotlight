@@ -1,17 +1,15 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/app/utils/db'
 
-// make sure user authenticated
-// get user id from session
-
-// User found: Returns an array of all scenes associates with user
-// User not found: Returns an empty array
-// Prisma error: Error message with status 500
-export async function GET(req: Request) {
+// Returns an array of all scenes associates with user
+// Array can be empty
+// Otherwise error message with status 500
+export async function GET(req: NextRequest) {
+  const userId = req.nextUrl.searchParams.get('userId') as string
   try {
     const scenes = await prisma.scene.findMany({
       where: {
-        userId: 'clpsa44zn0000xpgigs2ipm0l',
+        userId: userId,
       },
     })
     return NextResponse.json(scenes, { status: 200 })

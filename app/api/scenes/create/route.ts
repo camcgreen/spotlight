@@ -1,12 +1,20 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/app/utils/db'
 
 // get user id from session
 // zod to validate incoming data
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { title, device, imageLink, position, rotation, backgroundColor } = body
+  const {
+    title,
+    device,
+    imageLink,
+    position,
+    rotation,
+    backgroundColor,
+    userId,
+  } = body
 
   try {
     const scene = await prisma.scene.create({
@@ -17,7 +25,7 @@ export async function POST(req: Request) {
         position: position,
         rotation: rotation,
         backgroundColor: backgroundColor,
-        userId: 'clpsa44zn0000xpgigs2ipm0l', // Associate the scene with Cam (hard coded for now)
+        userId: userId,
       },
     })
     return NextResponse.json(scene, { status: 200 })
