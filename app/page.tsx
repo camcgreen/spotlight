@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
 import LogOutButton from '@/app/components/auth/LogOutButton'
+import { URL_DEV, URL_PROD } from '@/app/utils/macros'
 
 interface Scene {
   id: string
@@ -23,7 +24,12 @@ export default async function Home() {
   }
 
   // const endpoint = `http://localhost:3000/api/scenes?userId=${session.user.id}`
-  const endpoint = `https://getspotlight.vercel.app/api/scenes?userId=${session.user.id}`
+  // process.env.NODE_ENV !== 'production' && console.log('not production')
+  // process.env.NODE_ENV == 'production' && console.log('is production')
+  // console.log(URL_DEV)
+  // console.log(URL_PROD)
+  // const endpoint = `https://getspotlight.vercel.app/api/scenes?userId=${session.user.id}`
+  const endpoint = `${URL_DEV}/api/scenes?userId=${session.user.id}`
   const res = await fetch(endpoint)
   const scenes: Scene[] = await res.json()
   console.log('endpoint:', endpoint)
@@ -34,6 +40,7 @@ export default async function Home() {
       {session ? (
         <div>
           <h1>Display projects here.</h1>
+          <h2>{process.env.NODE_ENV !== 'production' ? URL_DEV : URL_PROD}</h2>
           <ul>
             {scenes.map((scene: Scene) => (
               <li key={scene.id}>
