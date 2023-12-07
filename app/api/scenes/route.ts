@@ -4,6 +4,9 @@ import prisma from '@/app/utils/db'
 // make sure user authenticated
 // get user id from session
 
+// User found: Returns an array of all scenes associates with user
+// User not found: Returns an empty array
+// Prisma error: Error message with status 500
 export async function GET(req: Request) {
   try {
     const scenes = await prisma.scene.findMany({

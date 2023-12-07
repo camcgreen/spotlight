@@ -54,8 +54,21 @@ model VerificationToken {
 }
 
 model Scene {
-  id     String @id @default(cuid())
-  title  String
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  id              String  @id @default(cuid())
+  title           String
+  device          Device  @default(iPhone)
+  imageLink       String?
+  position        String  @default("0,0,0")
+  rotation        String  @default("0,0,0")
+  backgroundColor String  @default("#ffffff")
+  userId          String
+  user            User    @relation(fields: [userId], references: [id])
+
+  @@index([userId]) // Optional - improves query performance on user-scene relations
+}
+
+enum Device {
+  iPhone
+  iPad
+  MacBook
 }
