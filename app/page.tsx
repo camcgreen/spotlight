@@ -14,8 +14,8 @@ export default async function Home() {
   const endpoint = `http://localhost:3000/api/scenes?userId=${session.user.id}`
   const res = await fetch(endpoint)
   const scenes = await res.json()
-  console.log(endpoint)
-  console.log(scenes)
+  console.log('endpoint:', endpoint)
+  console.log('scenes', scenes)
 
   return (
     <div>
