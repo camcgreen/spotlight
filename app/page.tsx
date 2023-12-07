@@ -29,7 +29,8 @@ export default async function Home() {
   // console.log(URL_DEV)
   // console.log(URL_PROD)
   // const endpoint = `https://getspotlight.vercel.app/api/scenes?userId=${session.user.id}`
-  const endpoint = `${URL_DEV}/api/scenes?userId=${session.user.id}`
+  // const endpoint = `${URL_DEV}/api/scenes?userId=${session.user.id}`
+  const endpoint = `${URL_PROD}/api/scenes?userId=${session.user.id}`
   const res = await fetch(endpoint)
   const scenes: Scene[] = await res.json()
   console.log('endpoint:', endpoint)
@@ -40,7 +41,7 @@ export default async function Home() {
       {session ? (
         <div>
           <h1>Display projects here.</h1>
-          <h2>{process.env.NODE_ENV !== 'production' ? URL_DEV : URL_PROD}</h2>
+          {/* <h2>{process.env.NODE_ENV !== 'production' ? URL_DEV : URL_PROD}</h2> */}
           <ul>
             {scenes.map((scene: Scene) => (
               <li key={scene.id}>
