@@ -3,6 +3,17 @@ import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
 import LogOutButton from '@/app/components/auth/LogOutButton'
 
+interface Scene {
+  id: string
+  title: string
+  device: 'iPhone' | 'iPad' | 'MacBook'
+  imageLink: string | null
+  position: string
+  rotation: string
+  backgroundColor: string
+  userId: string
+}
+
 export default async function Home() {
   const session = await getServerSession(authOptions)
   // console.log(session)
@@ -14,7 +25,7 @@ export default async function Home() {
   // const endpoint = `http://localhost:3000/api/scenes?userId=${session.user.id}`
   const endpoint = `https://getspotlight.vercel.app/api/scenes?userId=${session.user.id}`
   const res = await fetch(endpoint)
-  const scenes = await res.json()
+  const scenes: Scene[] = await res.json()
   console.log('endpoint:', endpoint)
   console.log('scenes', scenes)
 
@@ -23,6 +34,14 @@ export default async function Home() {
       {session ? (
         <div>
           <h1>Display projects here.</h1>
+          <ul>
+            {scenes.map((scene: Scene) => (
+              <li key={scene.id}>
+                <p>{scene.title}</p>
+                <p>{scene.device}</p>
+              </li>
+            ))}
+          </ul>
           <LogOutButton />
         </div>
       ) : (
