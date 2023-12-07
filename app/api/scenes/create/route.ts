@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/app/utils/db'
 
-// get user id from session
-// zod to validate incoming data
-
 export async function POST(req: NextRequest) {
   const body = await req.json()
   const {
