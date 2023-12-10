@@ -8,7 +8,7 @@ export const SceneSchema = z.object({
     z.literal('iPad'),
     z.literal('MacBook'),
   ]),
-  imageLink: z.string().nullable(),
+  imageLink: z.string().nullable().optional(),
   position: z.string(),
   rotation: z.string(),
   backgroundColor: z.string(),

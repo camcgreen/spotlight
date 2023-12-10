@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/app/utils/db'
 import { z } from 'zod'
 
-const getScenesSchema = z.object({
+const GetScenesSchema = z.object({
   userId: z.string(),
 })
 
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const userId = req.nextUrl.searchParams.get('userId') as string
 
   try {
-    getScenesSchema.parse({ userId })
+    GetScenesSchema.parse({ userId })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ message: 'Invalid user ID' }, { status: 400 })

@@ -5,20 +5,22 @@ import { authOptions } from '@/app/utils/auth'
 import LogOutButton from '@/app/components/auth/LogOutButton'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
+import { z } from 'zod'
 
 async function fetchScenes(userId: string): Promise<SceneType[]> {
-  // await new Promise((resolve) => setTimeout(resolve, 3000))
-
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const endpoint = `${URL_BASE}/api/scenes?userId=${userId}`
   const res = await fetch(endpoint, { next: { revalidate: 10 } })
   const data = await res.json()
 
-  try {
-    const scenes: SceneType[] = SceneSchema.array().parse(data)
-    return scenes
-  } catch (error) {
-    console.error('Data validation error:', error)
-    throw error
+  const result = SceneSchema.array().safeParse(data)
+
+  if (result.success) {
+    return result.data
+  } else {
+    console.error('Data validation error:', result.error)
+    // toast appear saying that there was an error
+    return []
   }
 }
 
@@ -51,17 +53,17 @@ export default async function Home() {
 async function SceneList({ userId }: { userId: string }) {
   const scenes: SceneType[] = await fetchScenes(userId)
 
-  return (
-    scenes.length > 0 && (
-      <ul>
-        {scenes.map((scene: SceneType) => (
-          <li key={scene.id}>
-            <p>{scene.title}</p>
-            <p>{scene.device}</p>
-          </li>
-        ))}
-      </ul>
-    )
+  return scenes.length > 0 ? (
+    <ul>
+      {scenes.map((scene: SceneType) => (
+        <li key={scene.id}>
+          <p>{scene.title}</p>
+          <p>{scene.device}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No scenes found</p>
   )
 }
 
