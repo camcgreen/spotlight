@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         userId: userId,
       },
     })
-    return NextResponse.json(scene, { status: 200 })
+    return NextResponse.json(scene, { status: 201 })
   } catch (error) {
     console.error(error)
     return NextResponse.json(

@@ -1,47 +1,42 @@
+import { Suspense } from 'react'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
 import LogOutButton from '@/app/components/auth/LogOutButton'
 import { URL_BASE } from '@/app/utils/macros'
+import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 
-interface Scene {
-  id: string
-  title: string
-  device: 'iPhone' | 'iPad' | 'MacBook'
-  imageLink: string | null
-  position: string
-  rotation: string
-  backgroundColor: string
-  userId: string
+async function fetchScenes(userId: string): Promise<SceneType[]> {
+  // await new Promise((resolve) => setTimeout(resolve, 3000))
+
+  const endpoint = `${URL_BASE}/api/scenes?userId=${userId}`
+  const res = await fetch(endpoint, { next: { revalidate: 10 } })
+  const data = await res.json()
+
+  try {
+    const scenes: SceneType[] = SceneSchema.array().parse(data)
+    return scenes
+  } catch (error) {
+    console.error('Data validation error:', error)
+    throw error
+  }
 }
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
-  // console.log(session)
 
   if (!session) {
     return redirect('/auth')
   }
-
-  const endpoint = `${URL_BASE}/api/scenes?userId=${session.user.id}`
-  const res = await fetch(endpoint)
-  const scenes: Scene[] = await res.json()
-  console.log('endpoint:', endpoint)
-  console.log('scenes', scenes)
 
   return (
     <div>
       {session ? (
         <div>
           <h1>Display projects here.</h1>
-          <ul>
-            {scenes.map((scene: Scene) => (
-              <li key={scene.id}>
-                <p>{scene.title}</p>
-                <p>{scene.device}</p>
-              </li>
-            ))}
-          </ul>
+          <Suspense fallback={<Loading />}>
+            <SceneList userId={session.user.id} />
+          </Suspense>
           <LogOutButton />
         </div>
       ) : (
@@ -51,4 +46,25 @@ export default async function Home() {
       )}
     </div>
   )
+}
+
+async function SceneList({ userId }: { userId: string }) {
+  const scenes: SceneType[] = await fetchScenes(userId)
+
+  return (
+    scenes.length > 0 && (
+      <ul>
+        {scenes.map((scene: SceneType) => (
+          <li key={scene.id}>
+            <p>{scene.title}</p>
+            <p>{scene.device}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  )
+}
+
+function Loading() {
+  return <div>Loading...</div>
 }
