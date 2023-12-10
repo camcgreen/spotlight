@@ -6,9 +6,6 @@ import { SceneType } from '@/schema/SceneSchema'
 
 const Editor = ({ scene }: { scene: SceneType }) => {
   const [sharedScene, setSharedScene] = useState<SceneType>(scene)
-  useEffect(() => {
-    console.log(sharedScene)
-  }, [sharedScene])
   return (
     <div>
       <Toolbar sharedScene={sharedScene} setSharedScene={setSharedScene} />
