@@ -5,8 +5,8 @@ const SceneEditor = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
   // return <div>Scene Editor: {sharedScene.backgroundColor}</div>
   return (
     <ul>
-      {Object.entries(sharedScene).map(([k, v]) => (
-        <li>{`${k}: ${v}`}</li>
+      {Object.entries(sharedScene).map(([k, v], i) => (
+        <li key={i}>{`${k}: ${v}`}</li>
       ))}
     </ul>
   )
