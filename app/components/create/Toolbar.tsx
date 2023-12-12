@@ -1,60 +1,9 @@
 'use client'
+import { useState } from 'react'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
 import { RANGE_STEP } from '@/app/utils/macros'
 
 const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
-  function handleVectorChange(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault()
-    const field = e.target.id
-    switch (field) {
-      case 'positionX':
-        setSharedScene({
-          ...sharedScene,
-          position: `${e.target.value},${sharedScene.position.split(',')[1]},${
-            sharedScene.position.split(',')[2]
-          }`,
-        })
-        break
-      case 'positionY':
-        setSharedScene({
-          ...sharedScene,
-          position: `${sharedScene.position.split(',')[0]},${e.target.value},${
-            sharedScene.position.split(',')[2]
-          }`,
-        })
-        break
-      case 'positionZ':
-        setSharedScene({
-          ...sharedScene,
-          position: `${sharedScene.position.split(',')[0]},
-          ${sharedScene.position.split(',')[1]},${e.target.value}`,
-        })
-        break
-      case 'rotationX':
-        setSharedScene({
-          ...sharedScene,
-          rotation: `${e.target.value},${sharedScene.rotation.split(',')[1]},${
-            sharedScene.rotation.split(',')[2]
-          }`,
-        })
-        break
-      case 'rotationY':
-        setSharedScene({
-          ...sharedScene,
-          rotation: `${sharedScene.rotation.split(',')[0]},${e.target.value},${
-            sharedScene.rotation.split(',')[2]
-          }`,
-        })
-        break
-      case 'rotationZ':
-        setSharedScene({
-          ...sharedScene,
-          rotation: `${sharedScene.rotation.split(',')[0]},
-            ${sharedScene.rotation.split(',')[1]},${e.target.value}`,
-        })
-        break
-    }
-  }
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
@@ -103,9 +52,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='position'
         min={-3.14}
         max={3.14}
-        value={sharedScene.position.split(',')[0]}
+        value={sharedScene.positionX}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
       <input
         type='range'
@@ -113,9 +62,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='position'
         min={-3.14}
         max={3.14}
-        value={sharedScene.position.split(',')[1]}
+        value={sharedScene.positionY}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
       <input
         type='range'
@@ -123,9 +72,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='position'
         min={-3.14}
         max={3.14}
-        value={sharedScene.position.split(',')[2]}
+        value={sharedScene.positionZ}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
       <input
         type='range'
@@ -133,9 +82,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='rotation'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotation.split(',')[0]}
+        value={sharedScene.rotationX}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
       <input
         type='range'
@@ -143,9 +92,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='rotation'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotation.split(',')[1]}
+        value={sharedScene.rotationY}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
       <input
         type='range'
@@ -153,9 +102,9 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         name='rotation'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotation.split(',')[2]}
+        value={sharedScene.rotationZ}
         step={RANGE_STEP}
-        onChange={handleVectorChange}
+        onChange={handleChange}
       />
     </form>
   )

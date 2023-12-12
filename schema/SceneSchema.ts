@@ -10,8 +10,12 @@ export const SceneSchema = z.object({
   ]),
   imageLink: z.string().nullable().optional(),
   backgroundColor: z.string(),
-  position: z.string(),
-  rotation: z.string(),
+  positionX: z.number(),
+  positionY: z.number(),
+  positionZ: z.number(),
+  rotationX: z.number(),
+  rotationY: z.number(),
+  rotationZ: z.number(),
   userId: z.string(),
 })
 

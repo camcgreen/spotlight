@@ -58,8 +58,12 @@ model Scene {
   title           String
   device          Device  @default(iPhone)
   imageLink       String?
-  position        String  @default("0,0,0")
-  rotation        String  @default("0,0,0")
+  positionX       Float   @default(0)
+  positionY       Float   @default(0)
+  positionZ       Float   @default(0)
+  rotationX       Float   @default(0)
+  rotationY       Float   @default(0)
+  rotationZ       Float   @default(0)
   backgroundColor String  @default("#ffffff")
   userId          String
   user            User    @relation(fields: [userId], references: [id])
