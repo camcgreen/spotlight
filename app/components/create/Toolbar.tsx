@@ -1,19 +1,45 @@
 'use client'
-import { useState } from 'react'
+import { URL_BASE } from '@/app/utils/macros'
+import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
 import { RANGE_STEP } from '@/app/utils/macros'
 
 const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
+  async function updateScene(sceneId: string): Promise<SceneType | null> {
+    const endpoint = `${URL_BASE}/api/scenes/update/${sceneId}`
+    const res = await fetch(endpoint, {
+      method: 'PUT',
+      body: JSON.stringify(sharedScene),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await res.json()
+    const result = SceneSchema.safeParse(data)
+
+    if (result.success) {
+      return result.data
+    } else {
+      console.error('Data validation error:', result.error)
+      return null
+    }
+  }
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
     e.preventDefault()
     const field = e.target.id
-    setSharedScene({ ...sharedScene, [field]: e.target.value })
+    const isPosRot = field.includes('position') || field.includes('rotation')
+    console.log(isPosRot)
+    setSharedScene({
+      ...sharedScene,
+      [field]: isPosRot ? parseFloat(e.target.value) : e.target.value,
+    })
   }
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // need to create an endpoint for updating the scene
+    const updatedScene: SceneType | null = await updateScene(sharedScene.id)
+    console.log('show toast notif: scene succesfully updated')
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -106,6 +132,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         step={RANGE_STEP}
         onChange={handleChange}
       />
+      <input type='submit' value='Submit' />
     </form>
   )
 }
