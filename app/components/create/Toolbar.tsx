@@ -1,4 +1,6 @@
 'use client'
+import { useCallback } from 'react'
+import { debounce } from 'lodash'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
@@ -24,35 +26,40 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
       return null
     }
   }
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) {
-    e.preventDefault()
-    const field = e.target.id
-    const isPosRot = field.includes('position') || field.includes('rotation')
-    console.log(isPosRot)
-    setSharedScene({
-      ...sharedScene,
-      [field]: isPosRot ? parseFloat(e.target.value) : e.target.value,
-    })
-  }
+
+  const debouncedHandleChange = useCallback(
+    debounce((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      e.preventDefault()
+      const field = e.target.id
+      const isPosRot = field.includes('position') || field.includes('rotation')
+      //@ts-ignore
+      setSharedScene((prevSharedScene) => ({
+        ...prevSharedScene,
+        [field]: isPosRot ? parseFloat(e.target.value) : e.target.value,
+      }))
+    }, 300),
+    []
+  )
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log(sharedScene)
     const updatedScene: SceneType | null = await updateScene(sharedScene.id)
-    console.log('show toast notif: scene succesfully updated')
+    console.log('show toast notif: scene succesfully updated', updatedScene)
   }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='flex flex-col h-full' id='toolbar'>
       <input
         type='text'
         id='title'
         name='title'
         minLength={1}
         maxLength={30}
-        placeholder={sharedScene.title}
-        onChange={handleChange}
+        defaultValue={sharedScene.title}
+        onChange={debouncedHandleChange}
       />
-      <select name='device' id='device' onChange={handleChange}>
+      <select name='device' id='device' onChange={debouncedHandleChange}>
         <option value='iPhone'>iPhone</option>
         <option value='iPad'>iPad</option>
         <option value='MacBook'>MacBook</option>
@@ -64,73 +71,74 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         placeholder={
           sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
         }
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='color'
+        name='backgroundColor'
         id='backgroundColor'
-        placeholder={sharedScene.backgroundColor}
-        onChange={handleChange}
+        defaultValue={sharedScene.backgroundColor}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='positionX'
-        name='position'
+        name='positionX'
         min={-3.14}
         max={3.14}
-        value={sharedScene.positionX}
+        defaultValue={sharedScene.positionX}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='positionY'
-        name='position'
+        name='positionY'
         min={-3.14}
         max={3.14}
-        value={sharedScene.positionY}
+        defaultValue={sharedScene.positionY}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='positionZ'
-        name='position'
+        name='positionZ'
         min={-3.14}
         max={3.14}
-        value={sharedScene.positionZ}
+        defaultValue={sharedScene.positionZ}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='rotationX'
-        name='rotation'
+        name='rotationX'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotationX}
+        defaultValue={sharedScene.rotationX}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='rotationY'
-        name='rotation'
+        name='rotationY'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotationY}
+        defaultValue={sharedScene.rotationY}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input
         type='range'
         id='rotationZ'
-        name='rotation'
+        name='rotationZ'
         min={-3.14}
         max={3.14}
-        value={sharedScene.rotationZ}
+        defaultValue={sharedScene.rotationZ}
         step={RANGE_STEP}
-        onChange={handleChange}
+        onChange={debouncedHandleChange}
       />
       <input type='submit' value='Submit' />
     </form>

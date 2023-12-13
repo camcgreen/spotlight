@@ -5,6 +5,7 @@ import { authOptions } from '@/app/utils/auth'
 import LogOutButton from '@/app/components/auth/LogOutButton'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
+import ButtonNew from '@/app/components/dashboard/ButtonNew'
 import { z } from 'zod'
 
 async function fetchScenes(userId: string): Promise<SceneType[]> {
@@ -61,6 +62,7 @@ async function SceneList({ userId }: { userId: string }) {
           <p>{scene.device}</p>
         </li>
       ))}
+      <ButtonNew userId={userId} />
     </ul>
   ) : (
     <p>No scenes found</p>

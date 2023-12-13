@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
-export const SceneSchema = z.object({
-  id: z.string(),
+export const CreatedSceneSchema = z.object({
   title: z.string(),
   device: z.union([
     z.literal('iPhone'),
@@ -19,4 +18,9 @@ export const SceneSchema = z.object({
   userId: z.string(),
 })
 
+export const SceneSchema = CreatedSceneSchema.extend({
+  id: z.string(),
+})
+
+export type CreatedSceneType = z.infer<typeof CreatedSceneSchema>
 export type SceneType = z.infer<typeof SceneSchema>

@@ -7,9 +7,9 @@ import { SceneType } from '@/schema/SceneSchema'
 const Editor = ({ scene }: { scene: SceneType }) => {
   const [sharedScene, setSharedScene] = useState<SceneType>(scene)
   return (
-    <div>
+    <div className='flex h-screen'>
       <Toolbar sharedScene={sharedScene} setSharedScene={setSharedScene} />
-      <Scene sharedScene={sharedScene} setSharedScene={setSharedScene} />
+      <Scene />
     </div>
   )
 }
