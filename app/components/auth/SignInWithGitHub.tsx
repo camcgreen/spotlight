@@ -7,7 +7,7 @@ export default function SignInWithGitHub() {
   const [loading, setLoading] = useState(false)
   return (
     <button
-      className='w-full bg-black hover:bg-gray-900 transition-colors text-white p-4 tracking-tight flex justify-center items-center rounded-lg mb-16 lg:mb-0'
+      className='w-full bg-black hover:bg-gray-900 transition-colors text-white p-4 flex justify-center items-center rounded-lg mb-16 lg:mb-0'
       onClick={() => {
         setLoading(true)
         signIn('github', {

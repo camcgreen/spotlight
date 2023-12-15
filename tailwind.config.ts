@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      height: {
+        'screen-sm': '100svh',
+      },
       colors: {
         'light-sky': '#FBFBFE',
         border: 'hsl(var(--border))',

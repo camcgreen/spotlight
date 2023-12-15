@@ -33,39 +33,120 @@ export default async function Home() {
   }
 
   return (
-    <div>
+    <main className='py-20 px-40 h-full'>
       {session ? (
-        <div>
-          <h1>Display projects here.</h1>
+        <section>
+          <div className='flex items-center mb-4'>
+            <img
+              src={session.user.image}
+              alt='User profile image'
+              className='rounded-full w-12 mr-4'
+            />
+            {/* <LogOutButton /> */}
+          </div>
+          <h1 className='font-medium text-2xl lg:text-4xl tracking-tighter'>
+            My projects.
+          </h1>
+          <h4 className='text-black text-opacity-80 mb-8'>
+            Your recently saved projects.
+          </h4>
           <Suspense fallback={<Loading />}>
             <SceneList userId={session.user.id} />
           </Suspense>
-          <LogOutButton />
-        </div>
+        </section>
       ) : (
         <div>
           <h1>Please log in to get started.</h1>
         </div>
       )}
-    </div>
+    </main>
   )
 }
 
 async function SceneList({ userId }: { userId: string }) {
-  const scenes: SceneType[] = await fetchScenes(userId)
+  // const scenes: SceneType[] = await fetchScenes(userId)
+  const scenes: SceneType[] = [
+    {
+      id: 'wefqwfqw',
+      title: 'My first scene',
+      device: 'iPhone',
+      imageLink: null,
+      backgroundColor: '#FFFFFF',
+      positionX: 0,
+      positionY: 0,
+      positionZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 0,
+      userId: 'qwdwefewfwe',
+    },
+    {
+      id: 'wefqwfqw',
+      title: 'My second scene',
+      device: 'MacBook',
+      imageLink: null,
+      backgroundColor: '#FFFFFF',
+      positionX: 0,
+      positionY: 0,
+      positionZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 0,
+      userId: 'qwdwefewfwe',
+    },
+    {
+      id: 'wefqwfqw',
+      title: 'My third scene',
+      device: 'iPad',
+      imageLink: null,
+      backgroundColor: '#FFFFFF',
+      positionX: 0,
+      positionY: 0,
+      positionZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 0,
+      userId: 'qwdwefewfwe',
+    },
+    {
+      id: 'wefqwfqw',
+      title: 'My fourth scene',
+      device: 'iPhone',
+      imageLink: null,
+      backgroundColor: '#FFFFFF',
+      positionX: 0,
+      positionY: 0,
+      positionZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 0,
+      userId: 'qwdwefewfwe',
+    },
+  ]
 
-  return scenes.length > 0 ? (
-    <ul>
-      {scenes.map((scene: SceneType) => (
-        <li key={scene.id}>
-          <p>{scene.title}</p>
-          <p>{scene.device}</p>
-        </li>
-      ))}
-      <ButtonNew userId={userId} />
-    </ul>
-  ) : (
-    <p>No scenes found</p>
+  return (
+    <div className=''>
+      {/* {scenes.length > 0 ? ( */}
+      <ul className='grid gap-4 grid-cols-3 '>
+        {scenes.map((scene: SceneType) => (
+          <li key={scene.id}>
+            <img
+              src='/images/splash-min.jpg'
+              className='rounded-xl'
+              alt={scene.title}
+            />
+            <p>{scene.title}</p>
+          </li>
+        ))}
+        <ButtonNew userId={userId} />
+      </ul>
+      {/* ) : (
+        <div>
+          <p>Create a scene to get started.</p>
+          <ButtonNew userId={userId} />
+        </div>
+      )} */}
+    </div>
   )
 }
 

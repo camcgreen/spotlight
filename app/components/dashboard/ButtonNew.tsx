@@ -44,7 +44,16 @@ const ButtonNew = ({ userId }: { userId: string }) => {
     )
     router.push('/create/' + newScene?.id)
   }
-  return <button onClick={handleClick}>Create New</button>
+  return (
+    <div className='flex justify-center items-center'>
+      <button
+        className='bg-black text-white hover:bg-gray-900 transition-colors text-3xl rounded-lg w-8 h-8 flex justify-center items-center'
+        onClick={handleClick}
+      >
+        +
+      </button>
+    </div>
+  )
 }
 
 export default ButtonNew

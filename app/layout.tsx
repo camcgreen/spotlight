@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='h-min tracking-tighter'>
       <body className={`${dm_sans.className} bg-light-sky`}>
-        <div className='flex flex-col justify-between h-screen'>
+        <div className='flex flex-col justify-between h-screen-sm'>
           <Header />
           {children}
           <Footer />

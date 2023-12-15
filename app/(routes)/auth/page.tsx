@@ -12,7 +12,9 @@ export default async function AuthRoute() {
     <main className='flex flex-col justify-center lg:flex-row h-full'>
       <section className='w-full lg:w-5/12 flex justify-center'>
         <div className='h-full flex flex-col justify-center'>
-          <h1 className='font-medium text-2xl lg:text-4xl'>Welcome.</h1>
+          <h1 className='font-medium text-2xl lg:text-4xl tracking-tighter'>
+            Welcome.
+          </h1>
           <h4 className='text-black text-opacity-80 mb-8'>
             Sign in with GitHub to continue to Spotlight.
           </h4>
