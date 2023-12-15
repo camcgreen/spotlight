@@ -47,7 +47,7 @@ const ButtonNew = ({ userId }: { userId: string }) => {
   return (
     <div className='flex justify-center items-center'>
       <button
-        className='bg-black text-white hover:bg-gray-900 transition-colors text-3xl rounded-lg w-8 h-8 flex justify-center items-center'
+        className='bg-black text-white hover:bg-gray-900 transition-colors text-3xl rounded-lg w-8 h-8 flex justify-center items-center font-extralight'
         onClick={handleClick}
       >
         +

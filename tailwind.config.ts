@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      minHeight: {
+        'screen-sm': '100svh',
+      },
       height: {
         'screen-sm': '100svh',
       },
