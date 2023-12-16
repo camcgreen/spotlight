@@ -9,7 +9,7 @@ const Editor = ({ scene }: { scene: SceneType }) => {
   return (
     <div className='flex flex-col md:flex-row mx-4 p-4 lg:mx-8 lg:p-8 bg-white rounded-xl'>
       <Toolbar sharedScene={sharedScene} setSharedScene={setSharedScene} />
-      <Scene />
+      <Scene device={sharedScene.device} />
     </div>
   )
 }

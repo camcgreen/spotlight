@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
@@ -55,8 +56,36 @@ type GLTFResult = GLTF & {
 
 export function PhoneModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/iphone.glb') as GLTFResult
+  const form = document.getElementById('toolbar') as HTMLFormElement
+  const groupRef = useRef<THREE.Group>(null)
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.position.set(
+        parseFloat(
+          (form.elements.namedItem('positionX') as HTMLInputElement).value
+        ),
+        parseFloat(
+          (form.elements.namedItem('positionY') as HTMLInputElement).value
+        ),
+        parseFloat(
+          (form.elements.namedItem('positionZ') as HTMLInputElement).value
+        )
+      )
+      groupRef.current.rotation.set(
+        parseFloat(
+          (form.elements.namedItem('rotationX') as HTMLInputElement).value
+        ),
+        parseFloat(
+          (form.elements.namedItem('rotationY') as HTMLInputElement).value
+        ),
+        parseFloat(
+          (form.elements.namedItem('rotationZ') as HTMLInputElement).value
+        )
+      )
+    }
+  })
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} ref={groupRef}>
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.109}>
         <mesh
           castShadow
