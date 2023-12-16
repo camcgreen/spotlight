@@ -16,7 +16,8 @@ export const metadata = {
 
 async function fetchScene(sceneId: string): Promise<SceneType | null> {
   const endpoint = `${URL_BASE}/api/scenes/${sceneId}`
-  const res = await fetch(endpoint, { next: { revalidate: 10 } })
+  // const res = await fetch(endpoint, { next: { revalidate: 10 } })
+  const res = await fetch(endpoint)
   const data = await res.json()
 
   const result = SceneSchema.safeParse(data)

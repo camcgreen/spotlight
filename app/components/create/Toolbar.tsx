@@ -64,7 +64,12 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           defaultValue={sharedScene.title}
           onChange={debouncedHandleChange}
         />
-        <select name='device' id='device' onChange={debouncedHandleChange}>
+        <select
+          name='device'
+          id='device'
+          onChange={debouncedHandleChange}
+          value={sharedScene.device}
+        >
           <option value='iPhone'>iPhone</option>
           <option value='iPad'>iPad</option>
           <option value='MacBook'>MacBook</option>
@@ -73,9 +78,10 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           type='text'
           id='imageLink'
           name='imageLink'
-          placeholder={
-            sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
-          }
+          defaultValue={sharedScene.imageLink ? sharedScene.imageLink : ''}
+          // placeholder={
+          //   sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
+          // }
           onChange={debouncedHandleChange}
         />
         <input

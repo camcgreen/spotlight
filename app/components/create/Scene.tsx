@@ -31,8 +31,8 @@ function Scene({ device }: SceneProps) {
 
 function SceneEditor({ device }: SceneProps) {
   return (
-    <div className='w-full md:w-9/12 rounded-xl h-screen-middle-sm lg:h-screen-middle bg-dark-sky'>
-      <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
+    <div className='w-full md:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
+      <Canvas camera={{ position: [0, 0, 7], fov: 50 }} className='rounded-xl'>
         <ambientLight />
         <directionalLight position={[0, 10, 5]} intensity={1} />
         <Environment preset='city' />

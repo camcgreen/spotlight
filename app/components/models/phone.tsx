@@ -58,7 +58,13 @@ export function PhoneModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/iphone.glb') as GLTFResult
   const form = document.getElementById('toolbar') as HTMLFormElement
   const groupRef = useRef<THREE.Group>(null)
-  const texture = useTexture('/images/iphone.jpg')
+  const imageLink = (form.elements.namedItem('imageLink') as HTMLInputElement)
+    .value
+  let texture
+  if (imageLink) {
+    console.log(imageLink)
+    texture = useTexture(imageLink)
+  }
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.position.set(

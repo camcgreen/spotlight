@@ -22,7 +22,7 @@ const ButtonNew = ({
       rotationX: 0,
       rotationY: 0,
       rotationZ: 0,
-      backgroundColor: '#eeffdd',
+      backgroundColor: '#F8F9FD',
       userId: userId,
     }
     const res = await fetch(endpoint, {

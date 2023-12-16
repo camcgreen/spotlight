@@ -31,8 +31,7 @@ module.exports = {
       },
       colors: {
         'light-sky': '#FBFBFE',
-        'dark-sky': '#F8F9FD',
-        // 'light-sky': '#C2BBCF',
+        'dark-sky': '#EFF0F5',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
