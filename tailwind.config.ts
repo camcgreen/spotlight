@@ -26,13 +26,13 @@ module.exports = {
       },
       height: {
         'screen-sm': '100svh',
-        'screen-middle': 'calc(100svh - 12rem)',
-        // 'screen-middle': 'calc(100vh - 96px - 96px)',
-        // 'screen-middle': '1000px',
-        // 'screen-middle': 'calc(100% - 96px - 96px)',
+        'screen-middle': 'calc(100svh - 12rem - 4rem)',
+        'screen-middle-sm': 'calc(100svh - 12rem - 2rem)',
       },
       colors: {
         'light-sky': '#FBFBFE',
+        'dark-sky': '#F8F9FD',
+        // 'light-sky': '#C2BBCF',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

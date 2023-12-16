@@ -39,7 +39,7 @@ async function Create({ params }: { params: CreateSceneProps }) {
     return <SceneNotFound />
   }
   return (
-    <div className='min-h-screen flex flex-col justify-between'>
+    <div className='flex flex-col justify-between'>
       <Header />
       <Editor scene={scene} />
       <Footer />

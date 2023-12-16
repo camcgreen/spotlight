@@ -44,8 +44,7 @@ function Box(props: MeshProps) {
 const SceneEditor = () => {
   useEffect(() => {}, [])
   return (
-    <div className='w-full md:w-9/12 h-screen-middle'>
-      {/* <h1 className='text-center'>Scene here</h1> */}
+    <div className='w-full md:w-9/12 rounded-xl h-screen-middle-sm lg:h-screen-middle bg-dark-sky'>
       <Canvas>
         <ambientLight />
         <directionalLight position={[0, 10, 5]} intensity={1} />

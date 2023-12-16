@@ -49,103 +49,105 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='w-full md:w-3/12 flex flex-col justify-between align-middle'
-      id='toolbar'
-    >
-      <input
-        type='text'
-        id='title'
-        name='title'
-        minLength={1}
-        maxLength={30}
-        defaultValue={sharedScene.title}
-        onChange={debouncedHandleChange}
-      />
-      <select name='device' id='device' onChange={debouncedHandleChange}>
-        <option value='iPhone'>iPhone</option>
-        <option value='iPad'>iPad</option>
-        <option value='MacBook'>MacBook</option>
-      </select>
-      <input
-        type='text'
-        id='imageLink'
-        name='imageLink'
-        placeholder={
-          sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
-        }
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='color'
-        name='backgroundColor'
-        id='backgroundColor'
-        defaultValue={sharedScene.backgroundColor}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='positionX'
-        name='positionX'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.positionX}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='positionY'
-        name='positionY'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.positionY}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='positionZ'
-        name='positionZ'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.positionZ}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='rotationX'
-        name='rotationX'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.rotationX}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='rotationY'
-        name='rotationY'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.rotationY}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input
-        type='range'
-        id='rotationZ'
-        name='rotationZ'
-        min={-3.14}
-        max={3.14}
-        defaultValue={sharedScene.rotationZ}
-        step={RANGE_STEP}
-        onChange={debouncedHandleChange}
-      />
-      <input type='submit' value='Submit' />
-    </form>
+    <div className='w-full md:w-3/12 flex justify-center items-center mr-8'>
+      <form
+        onSubmit={handleSubmit}
+        className='w-full flex flex-col'
+        id='toolbar'
+      >
+        <input
+          type='text'
+          id='title'
+          name='title'
+          minLength={1}
+          maxLength={30}
+          defaultValue={sharedScene.title}
+          onChange={debouncedHandleChange}
+        />
+        <select name='device' id='device' onChange={debouncedHandleChange}>
+          <option value='iPhone'>iPhone</option>
+          <option value='iPad'>iPad</option>
+          <option value='MacBook'>MacBook</option>
+        </select>
+        <input
+          type='text'
+          id='imageLink'
+          name='imageLink'
+          placeholder={
+            sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
+          }
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='color'
+          name='backgroundColor'
+          id='backgroundColor'
+          defaultValue={sharedScene.backgroundColor}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='positionX'
+          name='positionX'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.positionX}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='positionY'
+          name='positionY'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.positionY}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='positionZ'
+          name='positionZ'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.positionZ}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='rotationX'
+          name='rotationX'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.rotationX}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='rotationY'
+          name='rotationY'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.rotationY}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input
+          type='range'
+          id='rotationZ'
+          name='rotationZ'
+          min={-3.14}
+          max={3.14}
+          defaultValue={sharedScene.rotationZ}
+          step={RANGE_STEP}
+          onChange={debouncedHandleChange}
+        />
+        <input type='submit' value='Submit' />
+      </form>
+    </div>
   )
 }
 

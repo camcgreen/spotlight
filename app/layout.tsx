@@ -12,17 +12,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // return (
-  //   <html lang='en' className='h-min tracking-tighter'>
-  //     <body className={`${dm_sans.className} bg-light-sky`}>
-  //       <div className='flex flex-col justify-between min-h-screen-sm'>
-  //         <Header />
-  //         {children}
-  //         <Footer />
-  //       </div>
-  //     </body>
-  //   </html>
-  // )
   return (
     <html lang='en' className='tracking-tighter'>
       <body className={`${dm_sans.className} bg-light-sky`}>{children}</body>
