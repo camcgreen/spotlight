@@ -49,7 +49,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
   }
 
   return (
-    <div className='w-full md:w-3/12 flex justify-center items-center mr-8'>
+    <div className='w-full md:w-3/12 flex justify-center items-center mr-8 select-none'>
       <form
         onSubmit={handleSubmit}
         className='w-full flex flex-col'

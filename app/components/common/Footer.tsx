@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className='h-24 flex items-center lg:justify-end p-4 lg:p-8'>
+    <footer className='h-24 flex items-center lg:justify-end p-4 lg:p-8 select-none'>
       <a
         href='mailto:hello@camgreen.works'
         target='_blank'

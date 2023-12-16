@@ -35,13 +35,10 @@ async function Create({ params }: { params: CreateSceneProps }) {
     return redirect('/auth')
   }
   const scene: SceneType | null = await fetchScene(params.id)
-  if (!scene) {
-    return <SceneNotFound />
-  }
   return (
-    <div className='flex flex-col justify-between'>
+    <div className='flex flex-col justify-between min-h-screen'>
       <Header />
-      <Editor scene={scene} />
+      {scene ? <Editor scene={scene} /> : <SceneNotFound />}
       <Footer />
     </div>
   )

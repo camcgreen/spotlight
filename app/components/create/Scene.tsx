@@ -2,7 +2,8 @@
 import { Mesh } from 'three'
 import { useRef, useEffect } from 'react'
 import { Canvas, useFrame, MeshProps } from '@react-three/fiber'
-import { CameraControls } from '@react-three/drei'
+import { CameraControls, Environment } from '@react-three/drei'
+import { PhoneModel } from '@/app/components/models/phone'
 
 function Box(props: MeshProps) {
   const meshRef = useRef<Mesh>(null)
@@ -48,7 +49,9 @@ const SceneEditor = () => {
       <Canvas>
         <ambientLight />
         <directionalLight position={[0, 10, 5]} intensity={1} />
-        <Box position={[0, 0, 0]} />
+        <Environment preset='city' />
+        {/* <Box position={[0, 0, 0]} /> */}
+        <PhoneModel scale={[0.1, 0.1, 0.1]} />
         <CameraControls
         // ref={cameraControlsRef}
         // minDistance={minDistance}
