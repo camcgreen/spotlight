@@ -22,9 +22,14 @@ module.exports = {
       },
       minHeight: {
         'screen-sm': '100svh',
+        'screen-middle': 'calc(100svh - 12rem)',
       },
       height: {
         'screen-sm': '100svh',
+        'screen-middle': 'calc(100svh - 12rem)',
+        // 'screen-middle': 'calc(100vh - 96px - 96px)',
+        // 'screen-middle': '1000px',
+        // 'screen-middle': 'calc(100% - 96px - 96px)',
       },
       colors: {
         'light-sky': '#FBFBFE',

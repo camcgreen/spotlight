@@ -4,7 +4,10 @@ import { CreateSceneProps } from '@/schema/SceneCreateSchema'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
+import Header from '@/app/components/common/Header'
+import Footer from '@/app/components/common/Footer'
 import Editor from '@/app/components/create/Editor'
+import SceneNotFound from '@/app/components/create/SceneNotFound'
 
 export const metadata = {
   title: 'Spotlight - Create',
@@ -33,11 +36,13 @@ async function Create({ params }: { params: CreateSceneProps }) {
   }
   const scene: SceneType | null = await fetchScene(params.id)
   if (!scene) {
-    return <p>The scene does not exist.</p>
+    return <SceneNotFound />
   }
   return (
-    <div>
+    <div className='min-h-screen flex flex-col justify-between'>
+      <Header />
       <Editor scene={scene} />
+      <Footer />
     </div>
   )
 }

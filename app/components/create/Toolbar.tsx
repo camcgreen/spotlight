@@ -49,7 +49,11 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col h-full' id='toolbar'>
+    <form
+      onSubmit={handleSubmit}
+      className='w-full md:w-3/12 flex flex-col justify-between align-middle'
+      id='toolbar'
+    >
       <input
         type='text'
         id='title'

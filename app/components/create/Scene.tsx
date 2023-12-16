@@ -44,19 +44,22 @@ function Box(props: MeshProps) {
 const SceneEditor = () => {
   useEffect(() => {}, [])
   return (
-    <Canvas>
-      <ambientLight />
-      <directionalLight position={[0, 10, 5]} intensity={1} />
-      <Box position={[0, 0, 0]} />
-      <CameraControls
-      // ref={cameraControlsRef}
-      // minDistance={minDistance}
-      // enabled={enabled}
-      // verticalDragToForward={verticalDragToForward}
-      // dollyToCursor={dollyToCursor}
-      // infinityDolly={infinityDolly}
-      />
-    </Canvas>
+    <div className='w-full md:w-9/12 h-screen-middle'>
+      {/* <h1 className='text-center'>Scene here</h1> */}
+      <Canvas>
+        <ambientLight />
+        <directionalLight position={[0, 10, 5]} intensity={1} />
+        <Box position={[0, 0, 0]} />
+        <CameraControls
+        // ref={cameraControlsRef}
+        // minDistance={minDistance}
+        // enabled={enabled}
+        // verticalDragToForward={verticalDragToForward}
+        // dollyToCursor={dollyToCursor}
+        // infinityDolly={infinityDolly}
+        />
+      </Canvas>
+    </div>
   )
 }
 
