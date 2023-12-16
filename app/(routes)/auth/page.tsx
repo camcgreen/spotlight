@@ -28,7 +28,7 @@ export default async function AuthRoute() {
       </section>
       <section className='w-full lg:w-7/12 flex flex-col grow-1 items-center'>
         <img
-          src='/images/splash-min.jpg'
+          src='/images/iphone.jpg'
           alt='Hero image Spotlight'
           className='w-full h-0 md:w-full md:h-80 lg:h-full object-cover rounded-none lg:rounded-6xl lg:rounded-tr-none lg:rounded-br-none'
         />

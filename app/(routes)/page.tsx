@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
 import Loading from '@/app/components/dashboard/Loading'
-import SceneContainer from './components/dashboard/SceneContainer'
+import SceneContainer from '../components/dashboard/SceneContainer'
 
 export const metadata = {
   title: 'Spotlight - Dashboard',

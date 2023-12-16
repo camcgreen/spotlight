@@ -16,9 +16,16 @@ export default async function SceneList({
         <ButtonNew userId={userId} />
         {scenes.map((scene: SceneType) => (
           <Link href={`/create/${scene.id}`} key={scene.id}>
-            <li className='cursor-pointer'>
+            <li className='cursor-pointer hover:opacity-80 transition-opacity'>
               <img
-                src='/images/splash-min.jpg'
+                // src='/images/iphone.jpg'
+                src={
+                  scene.device === 'iPhone'
+                    ? '/images/iphone.jpg'
+                    : scene.device === 'iPad'
+                    ? '/images/ipad.jpg'
+                    : '/images/macbook.jpg'
+                }
                 className='rounded-xl'
                 alt={scene.title}
               />
