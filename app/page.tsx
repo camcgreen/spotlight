@@ -2,12 +2,14 @@ import { Suspense } from 'react'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
-import LogOutButton from '@/app/components/auth/LogOutButton'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import SceneList from '@/app/components/dashboard/SceneList'
-import ButtonNew from '@/app/components/dashboard/ButtonNew'
-import { z } from 'zod'
+
+export const metadata = {
+  title: 'Spotlight - Dashboard',
+  description: 'Your recent projects.',
+}
 
 async function fetchScenes(userId: string): Promise<SceneType[]> {
   // await new Promise((resolve) => setTimeout(resolve, 3000))
@@ -73,20 +75,20 @@ export default async function Home() {
     //   rotationZ: 0,
     //   userId: 'qwdwefewfwe',
     // },
-    {
-      id: 'wefqwfqw',
-      title: 'My fourth scene',
-      device: 'iPhone',
-      imageLink: null,
-      backgroundColor: '#FFFFFF',
-      positionX: 0,
-      positionY: 0,
-      positionZ: 0,
-      rotationX: 0,
-      rotationY: 0,
-      rotationZ: 0,
-      userId: 'qwdwefewfwe',
-    },
+    // {
+    //   id: 'wefqwfqw',
+    //   title: 'My fourth scene',
+    //   device: 'iPhone',
+    //   imageLink: null,
+    //   backgroundColor: '#FFFFFF',
+    //   positionX: 0,
+    //   positionY: 0,
+    //   positionZ: 0,
+    //   rotationX: 0,
+    //   rotationY: 0,
+    //   rotationZ: 0,
+    //   userId: 'qwdwefewfwe',
+    // },
   ]
 
   if (!session) {

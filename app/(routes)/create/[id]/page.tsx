@@ -6,6 +6,11 @@ import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
 import Editor from '@/app/components/create/Editor'
 
+export const metadata = {
+  title: 'Spotlight - Create',
+  description: 'Create your scene.',
+}
+
 async function fetchScene(sceneId: string): Promise<SceneType | null> {
   const endpoint = `${URL_BASE}/api/scenes/${sceneId}`
   const res = await fetch(endpoint, { next: { revalidate: 10 } })

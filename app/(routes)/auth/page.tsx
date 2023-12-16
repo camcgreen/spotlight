@@ -3,6 +3,11 @@ import { authOptions } from '@/app/utils/auth'
 import SignInWithGitHub from '@/app/components/auth/SignInWithGitHub'
 import { redirect } from 'next/navigation'
 
+export const metadata = {
+  title: 'Spotlight - Sign in',
+  description: 'Sign in to Spotlight',
+}
+
 export default async function AuthRoute() {
   const session = await getServerSession(authOptions)
   if (session) {
