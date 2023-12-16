@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { CameraControls, Environment } from '@react-three/drei'
 import { PhoneModel } from '@/app/components/models/phone'
@@ -10,9 +10,18 @@ type SceneProps = {
   device: 'iPhone' | 'iPad' | 'MacBook'
 }
 
-function Scene({ device }: SceneProps) {
+function Scene({
+  device,
+  setGl,
+}: SceneProps & { setGl: (gl: THREE.WebGLRenderer) => void }) {
   const { gl } = useThree()
   const form = document.getElementById('toolbar') as HTMLFormElement
+
+  // Pass the gl context up to the parent component
+  useEffect(() => {
+    setGl(gl)
+  }, [gl, setGl])
+
   useFrame(() => {
     const color = (
       form.elements.namedItem('backgroundColor') as HTMLInputElement
@@ -30,15 +39,35 @@ function Scene({ device }: SceneProps) {
 }
 
 function SceneEditor({ device }: SceneProps) {
+  const [gl, setGl] = useState<THREE.WebGLRenderer | null>(null)
+  const captureScreenshot = () => {
+    if (gl) {
+      const screenshot = gl.domElement.toDataURL()
+      const link = document.createElement('a')
+      link.href = screenshot
+      link.download = 'screenshot.png'
+      link.click()
+    }
+  }
   return (
-    <div className='w-full md:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
-      <Canvas camera={{ position: [0, 0, 7], fov: 50 }} className='rounded-xl'>
+    <div className='relative w-full md:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
+      <Canvas
+        gl={{ preserveDrawingBuffer: true }}
+        camera={{ position: [0, 0, 7], fov: 50 }}
+        className='rounded-xl'
+      >
         <ambientLight />
         <directionalLight position={[0, 10, 5]} intensity={1} />
         <Environment preset='city' />
-        <Scene device={device} />
-        <CameraControls minDistance={3} maxDistance={15} />
+        <Scene device={device} setGl={setGl} />
+        <CameraControls minDistance={2} maxDistance={15} />
       </Canvas>
+      <button
+        onClick={captureScreenshot}
+        className='bg-black hover:bg-gray-900 transition-colors text-white p-4 flex justify-center items-center rounded-lg mb-16 lg:mb-0 absolute bottom-8 right-8'
+      >
+        <img src='/images/download.svg' alt='Download image' />
+      </button>
     </div>
   )
 }

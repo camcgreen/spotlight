@@ -68,8 +68,17 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           name='device'
           id='device'
           onChange={debouncedHandleChange}
-          value={sharedScene.device}
+          defaultValue=''
+          // value={sharedScene.device}
         >
+          <option
+            value=''
+            disabled
+            className='opacity-10'
+            style={{ color: 'grey' }}
+          >
+            Device
+          </option>
           <option value='iPhone'>iPhone</option>
           <option value='iPad'>iPad</option>
           <option value='MacBook'>MacBook</option>
@@ -79,9 +88,6 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           id='imageLink'
           name='imageLink'
           defaultValue={sharedScene.imageLink ? sharedScene.imageLink : ''}
-          // placeholder={
-          //   sharedScene.imageLink ? sharedScene.imageLink : 'Image Link'
-          // }
           onChange={debouncedHandleChange}
         />
         <input

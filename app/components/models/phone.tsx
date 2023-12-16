@@ -63,6 +63,7 @@ export function PhoneModel(props: JSX.IntrinsicElements['group']) {
   let texture
   if (imageLink) {
     console.log(imageLink)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     texture = useTexture(imageLink)
   }
   useFrame(() => {
