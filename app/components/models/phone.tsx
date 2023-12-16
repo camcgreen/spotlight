@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
@@ -58,6 +58,7 @@ export function PhoneModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/iphone.glb') as GLTFResult
   const form = document.getElementById('toolbar') as HTMLFormElement
   const groupRef = useRef<THREE.Group>(null)
+  const texture = useTexture('/images/iphone.jpg')
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.position.set(
@@ -212,9 +213,14 @@ export function PhoneModel(props: JSX.IntrinsicElements['group']) {
           castShadow
           receiveShadow
           geometry={nodes.screen.geometry}
-          material={materials['Mat.003']}
           scale={[1.001, 1, 1.001]}
-        />
+        >
+          {texture ? (
+            <meshStandardMaterial attach='material' map={texture} />
+          ) : (
+            <meshStandardMaterial attach='material' color='#232323' />
+          )}
+        </mesh>
         <mesh
           castShadow
           receiveShadow

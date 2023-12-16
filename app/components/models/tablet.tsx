@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
@@ -41,6 +41,7 @@ export function TabletModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/ipad.glb') as GLTFResult
   const form = document.getElementById('toolbar') as HTMLFormElement
   const groupRef = useRef<THREE.Group>(null)
+  const texture = useTexture('/images/iphone.jpg')
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.position.set(
@@ -151,7 +152,13 @@ export function TabletModel(props: JSX.IntrinsicElements['group']) {
           receiveShadow
           geometry={nodes.screen.geometry}
           material={materials['Material.009']}
-        />
+        >
+          {texture ? (
+            <meshStandardMaterial attach='material' map={texture} />
+          ) : (
+            <meshStandardMaterial attach='material' color='#232323' />
+          )}
+        </mesh>
         <mesh
           castShadow
           receiveShadow
