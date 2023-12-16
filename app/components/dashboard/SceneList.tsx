@@ -29,7 +29,7 @@ export default async function SceneList({
                 className='rounded-xl'
                 alt={scene.title}
               />
-              <p>{scene.title}</p>
+              <p>{`${scene.title} • ${scene.device}`}</p>
             </li>
           </Link>
         ))}
