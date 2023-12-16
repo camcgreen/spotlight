@@ -3,7 +3,13 @@ import { URL_BASE } from '@/app/utils/macros'
 import { SceneType, SceneSchema, CreatedSceneType } from '@/schema/SceneSchema'
 import { useRouter } from 'next/navigation'
 
-const ButtonNew = ({ userId }: { userId: string }) => {
+const ButtonNew = ({
+  userId,
+  empty = false,
+}: {
+  userId: string
+  empty?: boolean
+}) => {
   const router = useRouter()
   async function createScene(): Promise<SceneType | null> {
     const endpoint = `${URL_BASE}/api/scenes/create`
@@ -45,7 +51,7 @@ const ButtonNew = ({ userId }: { userId: string }) => {
     router.push('/create/' + newScene?.id)
   }
   return (
-    <div className='flex justify-center items-center'>
+    <div className={empty ? '' : 'flex justify-center items-center'}>
       <button
         className='bg-black text-white hover:bg-gray-900 transition-colors text-3xl rounded-lg w-8 h-8 flex justify-center items-center font-extralight'
         onClick={handleClick}

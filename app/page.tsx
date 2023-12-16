@@ -2,101 +2,23 @@ import { Suspense } from 'react'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/utils/auth'
-import { URL_BASE } from '@/app/utils/macros'
-import { SceneSchema, SceneType } from '@/schema/SceneSchema'
-import SceneList from '@/app/components/dashboard/SceneList'
+import Loading from '@/app/components/dashboard/Loading'
+import SceneContainer from './components/dashboard/SceneContainer'
 
 export const metadata = {
   title: 'Spotlight - Dashboard',
   description: 'Your recent projects.',
 }
 
-async function fetchScenes(userId: string): Promise<SceneType[]> {
-  // await new Promise((resolve) => setTimeout(resolve, 3000))
-  const endpoint = `${URL_BASE}/api/scenes?userId=${userId}`
-  const res = await fetch(endpoint, { next: { revalidate: 10 } })
-  const data = await res.json()
-
-  const result = SceneSchema.array().safeParse(data)
-
-  if (result.success) {
-    return result.data
-  } else {
-    console.error('Data validation error:', result.error)
-    // toast appear saying that there was an error
-    return []
-  }
-}
-
 export default async function Home() {
   const session = await getServerSession(authOptions)
-
-  // const scenes: SceneType[] = await fetchScenes(userId)
-  const scenes: SceneType[] = [
-    // {
-    //   id: 'wefqwfqw',
-    //   title: 'My first scene',
-    //   device: 'iPhone',
-    //   imageLink: null,
-    //   backgroundColor: '#FFFFFF',
-    //   positionX: 0,
-    //   positionY: 0,
-    //   positionZ: 0,
-    //   rotationX: 0,
-    //   rotationY: 0,
-    //   rotationZ: 0,
-    //   userId: 'qwdwefewfwe',
-    // },
-    // {
-    //   id: 'wefqwfqw',
-    //   title: 'My second scene',
-    //   device: 'MacBook',
-    //   imageLink: null,
-    //   backgroundColor: '#FFFFFF',
-    //   positionX: 0,
-    //   positionY: 0,
-    //   positionZ: 0,
-    //   rotationX: 0,
-    //   rotationY: 0,
-    //   rotationZ: 0,
-    //   userId: 'qwdwefewfwe',
-    // },
-    // {
-    //   id: 'wefqwfqw',
-    //   title: 'My third scene',
-    //   device: 'iPad',
-    //   imageLink: null,
-    //   backgroundColor: '#FFFFFF',
-    //   positionX: 0,
-    //   positionY: 0,
-    //   positionZ: 0,
-    //   rotationX: 0,
-    //   rotationY: 0,
-    //   rotationZ: 0,
-    //   userId: 'qwdwefewfwe',
-    // },
-    // {
-    //   id: 'wefqwfqw',
-    //   title: 'My fourth scene',
-    //   device: 'iPhone',
-    //   imageLink: null,
-    //   backgroundColor: '#FFFFFF',
-    //   positionX: 0,
-    //   positionY: 0,
-    //   positionZ: 0,
-    //   rotationX: 0,
-    //   rotationY: 0,
-    //   rotationZ: 0,
-    //   userId: 'qwdwefewfwe',
-    // },
-  ]
 
   if (!session) {
     return redirect('/auth')
   }
 
   return (
-    <main className='px-10 py-5 md:px-20 md:py-10 lg:px-40 lg:py-20 h-full flex-grow'>
+    <main className='px-10 py-5 md:px-20 md:py-10 lg:px-40 lg:py-20 flex-grow'>
       {session ? (
         <section>
           <div className='flex items-center mb-4'>
@@ -114,7 +36,7 @@ export default async function Home() {
             Your recently saved projects.
           </h4>
           <Suspense fallback={<Loading />}>
-            <SceneList scenes={scenes} userId={session.user.id} />
+            <SceneContainer userId={session.user.id} />
           </Suspense>
         </section>
       ) : (
@@ -124,8 +46,4 @@ export default async function Home() {
       )}
     </main>
   )
-}
-
-function Loading() {
-  return <div>Loading...</div>
 }

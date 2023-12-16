@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      aspectRatio: {
+        '5665': '5665',
+        '3535': '3535',
+      },
       minHeight: {
         'screen-sm': '100svh',
       },
