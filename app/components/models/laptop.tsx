@@ -193,7 +193,6 @@ export function LaptopModel(props: JSX.IntrinsicElements['group']) {
         >
           {/* @ts-ignore */}
           <modelMaterial
-            attach='material'
             uTexture={texture}
             uTextureBounds={[
               texture.source.data.width,

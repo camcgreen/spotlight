@@ -20,5 +20,7 @@ export const fragmentShader = `
     uv.x = 1.0 - uv.x;
     vec4 color = texture2D(uTexture, uv);
     gl_FragColor = texture2D(uTexture, uv);
+    #include <tonemapping_fragment>
+    #include <encodings_fragment>
   }
 `

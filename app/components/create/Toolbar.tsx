@@ -67,9 +67,14 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         <select
           name='device'
           id='device'
-          onChange={debouncedHandleChange}
-          defaultValue=''
-          // value={sharedScene.device}
+          onChange={(e) => {
+            //@ts-ignore
+            setSharedScene((prevSharedScene) => ({
+              ...prevSharedScene,
+              device: e.target.value,
+            }))
+          }}
+          value={sharedScene.device}
         >
           <option
             value=''

@@ -168,7 +168,6 @@ export function TabletModel(props: JSX.IntrinsicElements['group']) {
         >
           {/* @ts-ignore */}
           <modelMaterial
-            attach='material'
             uTexture={texture}
             uTextureBounds={[
               texture.source.data.width,
