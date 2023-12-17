@@ -1,8 +1,10 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { useGLTF, useTexture } from '@react-three/drei'
+import React, { useEffect, useRef, useMemo } from 'react'
+import { useFrame, extend } from '@react-three/fiber'
+import { useGLTF, shaderMaterial, useTexture, Image } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { vertexShader } from './shaders/vertex'
+import { fragmentShader } from './shaders/fragment'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -53,6 +55,13 @@ type GLTFResult = GLTF & {
     ['Mat.002']: THREE.MeshStandardMaterial
   }
 }
+const ModelMaterial = shaderMaterial(
+  { uTexture: null, uTextureBounds: [null, null], uPlaneScale: [11.7, 25.32] },
+  vertexShader,
+  fragmentShader
+)
+
+extend({ ModelMaterial })
 
 export function PhoneModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/iphone.glb') as GLTFResult
@@ -218,11 +227,16 @@ export function PhoneModel(props: JSX.IntrinsicElements['group']) {
           geometry={nodes.screen.geometry}
           scale={[1.001, 1, 1.001]}
         >
-          {texture ? (
-            <meshStandardMaterial attach='material' map={texture} />
-          ) : (
-            <meshStandardMaterial attach='material' color='#232323' />
-          )}
+          {/* @ts-ignore */}
+          <modelMaterial
+            attach='material'
+            uTexture={texture}
+            uTextureBounds={[
+              texture.source.data.width,
+              texture.source.data.height,
+            ]}
+            uPlaneScale={[11.7, 25.32]}
+          />
         </mesh>
         <mesh
           castShadow

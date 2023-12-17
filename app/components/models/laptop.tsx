@@ -1,8 +1,10 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { useGLTF, useTexture } from '@react-three/drei'
+import { useFrame, extend } from '@react-three/fiber'
+import { useGLTF, useTexture, shaderMaterial } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { vertexShader } from './shaders/vertex'
+import { fragmentShader } from './shaders/fragment'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -41,6 +43,14 @@ type GLTFResult = GLTF & {
     ['Material.007']: THREE.MeshStandardMaterial
   }
 }
+
+const ModelMaterial = shaderMaterial(
+  { uTexture: null, uTextureBounds: [null, null], uPlaneScale: [11.7, 25.32] },
+  vertexShader,
+  fragmentShader
+)
+
+extend({ ModelMaterial })
 
 export function LaptopModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/macbook.glb') as GLTFResult
@@ -181,11 +191,16 @@ export function LaptopModel(props: JSX.IntrinsicElements['group']) {
           scale={[1.005, 0, 1.005]}
           position={[0, -4, 0]}
         >
-          {texture ? (
-            <meshStandardMaterial attach='material' map={texture} />
-          ) : (
-            <meshStandardMaterial attach='material' color='#232323' />
-          )}
+          {/* @ts-ignore */}
+          <modelMaterial
+            attach='material'
+            uTexture={texture}
+            uTextureBounds={[
+              texture.source.data.width,
+              texture.source.data.height,
+            ]}
+            uPlaneScale={[25.6, 16]}
+          />
         </mesh>
         <group scale={10}>
           <mesh
