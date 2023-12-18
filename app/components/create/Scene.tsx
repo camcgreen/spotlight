@@ -50,7 +50,8 @@ function SceneEditor({ device }: SceneProps) {
     }
   }
   return (
-    <div className='relative w-full md:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
+    // <div className='relative w-full md:w-9/12 h-screen-middle'>
+    <div className='relative w-full lg:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
       <Canvas
         gl={{ preserveDrawingBuffer: true }}
         camera={{ position: [0, 0, 7], fov: 50 }}
@@ -64,7 +65,7 @@ function SceneEditor({ device }: SceneProps) {
       </Canvas>
       <button
         onClick={captureScreenshot}
-        className='bg-black hover:bg-gray-900 transition-colors text-white p-4 flex justify-center items-center rounded-lg mb-16 lg:mb-0 absolute bottom-8 right-8'
+        className='bg-black hover:bg-gray-900 transition-colors text-white p-4 flex justify-center items-center rounded-lg lg:mb-0 absolute bottom-4 right-4'
       >
         <img src='/images/download.svg' alt='Download image' />
       </button>
