@@ -6,11 +6,13 @@ import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
 import { RANGE_STEP } from '@/app/utils/macros'
+import Toast from '@/app/components/common/Toast'
 import Upload from './Upload'
 
 const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
   const router = useRouter()
   const [showUpload, setShowUpload] = useState<boolean>(false)
+  const [showToast, setShowToast] = useState<boolean>(false)
   async function updateScene(sceneId: string): Promise<SceneType | null> {
     const endpoint = `${URL_BASE}/api/scenes/update/${sceneId}`
     const res = await fetch(endpoint, {
@@ -63,6 +65,8 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
     e.preventDefault()
     // console.log(sharedScene)
     const updatedScene: SceneType | null = await updateScene(sharedScene.id)
+    setShowToast(true)
+    setTimeout(() => setShowToast(false), 3000)
     console.log('show toast notif: scene succesfully updated', updatedScene)
   }
 
@@ -238,6 +242,11 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         setShowUpload={setShowUpload}
         setSharedScene={setSharedScene}
         device={sharedScene.device}
+      />
+      <Toast
+        msg='Project saved.'
+        visible={showToast}
+        // visible={true}
       />
     </div>
   )
