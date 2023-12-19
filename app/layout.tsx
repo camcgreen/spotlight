@@ -1,9 +1,6 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { DM_Sans } from 'next/font/google'
 import './globals.css'
-import Header from '@/app/components/common/Header'
-import Footer from '@/app/components/common/Footer'
+import { EdgeStoreProvider } from '@/lib/edgestore'
 
 const dm_sans = DM_Sans({ subsets: ['latin'] })
 
@@ -14,7 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='tracking-tighter'>
-      <body className={`${dm_sans.className} bg-light-sky`}>{children}</body>
+      <body className={`${dm_sans.className} bg-light-sky`}>
+        <EdgeStoreProvider>{children}</EdgeStoreProvider>
+      </body>
     </html>
   )
 }

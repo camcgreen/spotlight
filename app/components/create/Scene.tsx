@@ -50,7 +50,6 @@ function SceneEditor({ device }: SceneProps) {
     }
   }
   return (
-    // <div className='relative w-full md:w-9/12 h-screen-middle'>
     <div className='relative w-full lg:w-9/12 h-screen-middle-sm lg:h-screen-middle'>
       <Canvas
         gl={{ preserveDrawingBuffer: true }}

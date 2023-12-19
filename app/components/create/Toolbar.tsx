@@ -1,12 +1,14 @@
 'use client'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { debounce } from 'lodash'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
 import { RANGE_STEP } from '@/app/utils/macros'
+import Upload from './Upload'
 
 const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
+  const [showUpload, setShowUpload] = useState<boolean>(false)
   async function updateScene(sceneId: string): Promise<SceneType | null> {
     const endpoint = `${URL_BASE}/api/scenes/update/${sceneId}`
     const res = await fetch(endpoint, {
@@ -54,12 +56,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
       style={{ overflowY: 'auto' }}
       id='toolbar-container'
     >
-      <form
-        onSubmit={handleSubmit}
-        className='w-full'
-        // className='w-full h-full flex flex-col overflow-auto'
-        id='toolbar'
-      >
+      <form onSubmit={handleSubmit} className='w-full' id='toolbar'>
         <div className='border-solid border-0 border-b border-gray-300 pb-4 mb-4 text-xl'>
           <input
             type='text'
@@ -83,7 +80,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
               }))
             }}
             value={sharedScene.device}
-            className='cursor-pointer'
+            className='text-xs md:text-base cursor-pointer'
           >
             <option
               value=''
@@ -105,11 +102,19 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
             name='imageLink'
             defaultValue={sharedScene.imageLink ? sharedScene.imageLink : ''}
             onChange={debouncedHandleChange}
-            className='w-full'
+            className='w-full hidden'
           />
+          <button
+            className='text-xs md:text-sm p-2 lg:px-4 lg:py-2 flex justify-center items-center rounded-lg border border-black hover:border-gray-500 hover:text-gray-500 transition-colors'
+            onClick={() => setShowUpload(true)}
+          >
+            Choose image
+          </button>
         </div>
         <div className='border-solid border-0 border-b border-gray-300 pb-4 mb-4'>
-          <p className='mb-2 text-gray-700'>Background Colour</p>
+          <p className='text-xs md:text-base mb-2 text-gray-700'>
+            Background Colour
+          </p>
           <input
             type='color'
             name='backgroundColor'
@@ -120,7 +125,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           />
         </div>
         <div className='border-solid border-0 border-b border-gray-300 pb-4 mb-4 flex flex-col'>
-          <p className='mb-2 text-gray-700'>Position</p>
+          <p className='text-xs md:text-base mb-2 text-gray-700'>Position</p>
           <input
             type='range'
             id='positionX'
@@ -153,7 +158,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           />
         </div>
         <div className='mb-4 flex flex-col'>
-          <p className='mb-2 text-gray-700'>Rotation</p>
+          <p className='text-xs md:text-base mb-2 text-gray-700'>Rotation</p>
           <input
             type='range'
             id='rotationX'
@@ -187,10 +192,16 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
         </div>
         <input
           type='submit'
-          value='Submit'
-          className='bg-black hover:bg-gray-900 transition-colors text-white p-4 mb-4 rounded-lg cursor-pointer'
+          value='Save Project'
+          className='text-xs md:text-sm bg-black hover:bg-gray-900 transition-colors text-white p-4 mb-4 rounded-lg cursor-pointer'
         />
       </form>
+      <Upload
+        visible={showUpload}
+        setShowUpload={setShowUpload}
+        setSharedScene={setSharedScene}
+        device={sharedScene.device}
+      />
     </div>
   )
 }
