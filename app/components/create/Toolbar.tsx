@@ -1,6 +1,7 @@
 'use client'
 import { useCallback, useState } from 'react'
 import { debounce } from 'lodash'
+import { useRouter } from 'next/navigation'
 import { URL_BASE } from '@/app/utils/macros'
 import { SceneSchema, SceneType } from '@/schema/SceneSchema'
 import { SharedSceneProps } from '@/schema/SceneCreateSchema'
@@ -8,6 +9,7 @@ import { RANGE_STEP } from '@/app/utils/macros'
 import Upload from './Upload'
 
 const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
+  const router = useRouter()
   const [showUpload, setShowUpload] = useState<boolean>(false)
   async function updateScene(sceneId: string): Promise<SceneType | null> {
     const endpoint = `${URL_BASE}/api/scenes/update/${sceneId}`
@@ -24,7 +26,21 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
     if (result.success) {
       return result.data
     } else {
-      console.error('Data validation error:', result.error)
+      console.error('Scene update error:', result.error)
+      return null
+    }
+  }
+
+  async function deleteScene(sceneId: string): Promise<SceneType | null> {
+    const endpoint = `${URL_BASE}/api/scenes/delete/${sceneId}`
+    const res = await fetch(endpoint, { method: 'DELETE' })
+    console.log(res)
+    const data = await res.json()
+    const result = SceneSchema.safeParse(data)
+    if (result.success) {
+      return result.data
+    } else {
+      console.error('Scene delete error:', result.error)
       return null
     }
   }
@@ -45,7 +61,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log(sharedScene)
+    // console.log(sharedScene)
     const updatedScene: SceneType | null = await updateScene(sharedScene.id)
     console.log('show toast notif: scene succesfully updated', updatedScene)
   }
@@ -190,11 +206,28 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
             onChange={debouncedHandleChange}
           />
         </div>
-        <input
-          type='submit'
-          value='Save Project'
-          className='text-xs md:text-sm bg-black hover:bg-gray-900 transition-colors text-white p-4 mb-4 rounded-lg cursor-pointer'
-        />
+        <div className='flex mb-4'>
+          <input
+            type='submit'
+            value='Save Project'
+            className='text-xs md:text-sm bg-black hover:bg-gray-900 transition-colors text-white p-4 mr-4 rounded-lg cursor-pointer'
+          />
+          <button
+            className='bg-red-500 hover:bg-red-600 p-4 rounded-lg cursor-pointer'
+            onClick={async (e) => {
+              e.preventDefault()
+              const confirmed = confirm(
+                'Are you sure you want to delete this project?'
+              )
+              if (confirmed) {
+                await deleteScene(sharedScene.id)
+                router.push('/')
+              } else return
+            }}
+          >
+            <img className='h-4' src='/images/trash.svg' alt='Delete project' />
+          </button>
+        </div>
       </form>
       <Upload
         visible={showUpload}
