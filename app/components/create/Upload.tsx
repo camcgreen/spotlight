@@ -43,53 +43,67 @@ export default function Upload({
       }}
     >
       <div
-        className='absolute w-full h-full right-0 bottom-0 bg-gray-800 bg-opacity-50'
+        className='absolute w-full h-full right-0 bottom-0 bg-gray-500 bg-opacity-90'
         onClick={() => setShowUpload(false)}
       />
-      <div className='absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 p-40 rounded-2xl bg-white'>
-        <SingleImageDropzone
-          width={200}
-          height={200}
-          dropzoneOptions={{
-            maxSize: 1024 * 1024 * 1, // 1MB
-          }}
-          value={file}
-          onChange={(file) => {
-            setFile(file)
-          }}
-        />
-        <div className='w-full h-2 border rounded overflow-hidden'>
-          <div
-            className='h-full bg-black transition-all duration-150'
-            style={{ width: `${progress}%` }}
+      <div className='absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 px-40 py-20 flex flex-col rounded-2xl bg-white'>
+        <div className='mb-8'>
+          <SingleImageDropzone
+            dropzoneOptions={{
+              maxSize: 1024 * 1024 * 4, // 4MB
+            }}
+            value={file}
+            onChange={(file) => {
+              setFile(file)
+            }}
           />
         </div>
-        <button
-          onClick={async () => {
-            if (file) {
-              const res = await edgestore.myPublicImages.upload({
-                file,
-                onProgressChange: (progress) => {
-                  setProgress(progress)
-                },
-              })
-              const imageUrl = res.url
-              const imageLinkInput = document.getElementById('imageLink')
-              imageLinkInput?.setAttribute('value', imageUrl)
-              //@ts-ignore
-              setSharedScene((prevSharedScene) => ({
-                ...prevSharedScene,
-                imageLink: imageUrl,
-              }))
-              setShowUpload(false)
-              // console.log(imageUrl)
-            }
-          }}
-        >
-          Confirm
-        </button>
-        <h2>Upload your image here.</h2>
-        <h3>Recommended resolution: {res}</h3>
+        {file && (
+          <div className='w-full h-2 mb-8 border rounded overflow-hidden'>
+            <div
+              className='h-full bg-black transition-all duration-150'
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
+
+        {file && (
+          <button
+            className='bg-black hover:bg-gray-900 transition-colors text-white p-4 flex justify-center items-center rounded-lg'
+            onClick={async () => {
+              if (file) {
+                const res = await edgestore.myPublicImages.upload({
+                  file,
+                  onProgressChange: (progress) => {
+                    setProgress(progress)
+                  },
+                })
+                const imageUrl = res.url
+                const imageLinkInput = document.getElementById('imageLink')
+                imageLinkInput?.setAttribute('value', imageUrl)
+                //@ts-ignore
+                setSharedScene((prevSharedScene) => ({
+                  ...prevSharedScene,
+                  imageLink: imageUrl,
+                }))
+                setShowUpload(false)
+                setProgress(0)
+              }
+            }}
+          >
+            Confirm
+          </button>
+        )}
+        {!file && (
+          <h2 className='text-sm md:text-base lg:text-xl text-center'>
+            Upload your image here.
+          </h2>
+        )}
+        {!file && (
+          <h3 className='text-xs lg:text-sm text-center text-opacity-50 text-black'>
+            Recommended resolution: {res}.
+          </h3>
+        )}
       </div>
     </div>
   )

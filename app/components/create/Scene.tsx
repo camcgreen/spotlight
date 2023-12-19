@@ -45,7 +45,7 @@ function SceneEditor({ device }: SceneProps) {
       const screenshot = gl.domElement.toDataURL()
       const link = document.createElement('a')
       link.href = screenshot
-      link.download = 'screenshot.png'
+      link.download = 'export.png'
       link.click()
     }
   }
