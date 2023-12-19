@@ -213,7 +213,7 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
             className='text-xs md:text-sm bg-black hover:bg-gray-900 transition-colors text-white p-4 mr-4 rounded-lg cursor-pointer'
           />
           <button
-            className='bg-red-500 hover:bg-red-600 p-4 rounded-lg cursor-pointer'
+            className='bg-white border border-black hover:opacity-50 p-4 rounded-lg cursor-pointer transition-opacity'
             onClick={async (e) => {
               e.preventDefault()
               const confirmed = confirm(
@@ -225,7 +225,11 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
               } else return
             }}
           >
-            <img className='h-4' src='/images/trash.svg' alt='Delete project' />
+            <img
+              className='h-4'
+              src='/images/trash-alt.svg'
+              alt='Delete project'
+            />
           </button>
         </div>
       </form>
