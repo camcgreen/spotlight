@@ -126,7 +126,10 @@ const Toolbar = ({ sharedScene, setSharedScene }: SharedSceneProps) => {
           />
           <button
             className='text-xs md:text-sm p-2 lg:px-4 lg:py-2 flex justify-center items-center rounded-lg border border-black hover:border-gray-500 hover:text-gray-500 transition-colors'
-            onClick={() => setShowUpload(true)}
+            onClick={(e) => {
+              e.preventDefault()
+              setShowUpload(true)
+            }}
           >
             Choose image
           </button>
